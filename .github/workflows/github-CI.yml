@@ -20,7 +20,7 @@ jobs:
         # Analyze the project
         ./analyze.sh
         # Make the directory for ECLAIR project database
-        mkdir -p ~/github/$GITHUB_REPOSITORY/$GITHUB_RUN_NUMBER && rm -f ~/github/$GITHUB_REPOSITORY/last_$GITHUB_REF_NAME
+        mkdir -p ~/github/$GITHUB_REPOSITORY/$GITHUB_RUN_NUMBER && rm -f ~/github/$GITHUB_REPOSITORY/last_$GITHUB_REF_NAME && ln -s ~/github/$GITHUB_REPOSITORY/$GITHUB_RUN_NUMBER ~/github/$GITHUB_REPOSITORY/last_$GITHUB_REF_NAME
         # Copy the project database
         scp out/PROJECT.ecd ~/github/$GITHUB_REPOSITORY/$GITHUB_RUN_NUMBER
         # Publish ECLAIR report link
