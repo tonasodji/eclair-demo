@@ -1,0 +1,50 @@
+name: "Analyze"
+on:
+  workflow_dispatch:
+  pull_request:
+env:
+    GH_TOKEN: ${{ secrets.TOK }}
+
+jobs:
+  Analyze:
+    runs-on: eclairit-1
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Analyze
+      run: |
+        set -e
+        cd ECLAIR
+        # Prepare for build
+        ../prepare.sh Debug
+        # Analyze the project
+        ./analyze.sh
+        # Make the directory for ECLAIR project database
+        mkdir -p ~/github/$GITHUB_REPOSITORY/$GITHUB_RUN_NUMBER && rm -f ~/github/$GITHUB_REPOSITORY/last_$GITHUB_REF_NAME
+        # Copy the project database
+        scp out/PROJECT.ecd ~/github/$GITHUB_REPOSITORY/$GITHUB_RUN_NUMBER
+        # Publish ECLAIR report link
+        echo "https://eclairit.com:3787/fs/home/emelin/github/$GITHUB_REPOSITORY/$GITHUB_RUN_NUMBER/PROJECT.ecd"
+        anybadge --label=ECLAIR --value=default --file=badge.svg
+        cp gh-quality-report.sarif out/
+        cp badge.svg out/
+    
+    - name: reports SARIF
+      run: |
+        ls -la
+        ris=$(gzip -c ECLAIR/gh-quality-report.sarif | base64 -w0)
+        gh api --method POST -H "Accept: application/vnd.github+json" /repos/tonasodji/eclair-demo/code-scanning/sarifs -f commit_sha=$GITHUB_SHA -f ref=$GITHUB_REF -f sarif=$ris
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifacts
+        path: ECLAIR/out
+ 
+  download:
+    name: download artifacts
+    runs-on: ubuntu-latest
+    needs: Analyze
+    steps:
+      - name: download artifacts
+        uses: actions/download-artifact@v3
+   
