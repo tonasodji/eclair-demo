@@ -61,4 +61,5 @@ jobs:
         tag: 'v0.1'
         files: |
           ./artifacts/*
+          ./artifacts/*/*
    
