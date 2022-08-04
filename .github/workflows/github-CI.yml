@@ -49,4 +49,10 @@ jobs:
        
     - name: download artifacts
       uses: actions/download-artifact@v3
+    - uses: eine/tip@master
+      with:
+        token: ${{ secrets.TOK }}
+        tag: 'v0.1'
+        files: |
+          ./artifact/*
    
