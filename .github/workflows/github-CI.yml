@@ -1,11 +1,11 @@
 name: "Analyze"
 on:
   workflow_dispatch:
-  #push:
-    #branches: main
-    #paths-ignore:
-      #- README.md
-      #- .github/wworkflows/release.yml
+  push:
+    branches: main
+    paths-ignore:
+      - README.md
+      - .github/wworkflows/release.yml
   pull_request:
 env:
     GH_TOKEN: ${{ secrets.TOK }}
