@@ -42,11 +42,12 @@ jobs:
         ris=$(gzip -c ECLAIR/gh-quality-report.sarif | base64 -w0)
         gh api --method POST -H "Accept: application/vnd.github+json" /repos/tonasodji/eclair-demo/code-scanning/sarifs -f commit_sha=$GITHUB_SHA -f ref=$GITHUB_REF -f sarif=$ris
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@master
       with:
         name: artifacts
         path: ECLAIR/out
         target: my-artifact
+
  
     - name: download artifacts
       uses: actions/download-artifact@v3
