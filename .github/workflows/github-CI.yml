@@ -51,13 +51,14 @@ jobs:
     needs: Analyze
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v2
-      with:
-        path: ./
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+    - name: Display
+      run: ls -R
     - uses: eine/tip@master
       with:
         token: ${{ secrets.TOK }}
         tag: 'v0.1'
         files: |
-          ./artifact/*
+          artifact/*
    
