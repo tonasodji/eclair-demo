@@ -60,5 +60,5 @@ jobs:
         token: ${{ secrets.TOK }}
         tag: 'v0.1'
         files: |
-          artifact/*
+          ./artifact/gh-quality-report.sarif
    
