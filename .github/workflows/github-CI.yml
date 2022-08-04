@@ -36,6 +36,7 @@ jobs:
         anybadge --label=ECLAIR --value=default --file=badge.svg
         cp gh-quality-report.sarif out/
         cp badge.svg out/
+        #
     
     - name: reports SARIF
       run: |

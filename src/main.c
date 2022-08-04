@@ -26,6 +26,11 @@
 #    define HEX_FORMAT  "0x%04X"
 #endif
 
+void 
+test_pull_request()
+{
+    int test_pull_request;
+}
 int
 main (int argc, char *argv[])
 {
