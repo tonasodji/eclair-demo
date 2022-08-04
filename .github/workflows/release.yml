@@ -9,6 +9,7 @@ name: Upload Release Asset
 jobs:
   build:
     name: Upload Release Asset
+<<<<<<< HEAD
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,6 +25,10 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+=======
+    runs-on: self-hosted
+    steps: 
+>>>>>>> a5e12a5656ceb975cd490049b434848b48299386
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
@@ -31,6 +36,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOK }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+<<<<<<< HEAD
           asset_path: ./artifacts
           asset_name: my-artifact
+=======
+          asset_path: ./
+          asset_name: artifacts
+>>>>>>> a5e12a5656ceb975cd490049b434848b48299386
           asset_content_type: application
